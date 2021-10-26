@@ -7,14 +7,8 @@
                     <!-- Nested row for non-featured blog posts-->
                     <div class="row">
                         <div class="col-lg-6">
-                            <Card></Card>
-                            <Card></Card>
+                            <Card v-for="article in articles" :key="article.id"></Card>
                         </div>
-                        <div class="col-lg-6">
-                            <Card></Card>
-                            <Card></Card>
-                        </div>
-
                     </div>
                     <!-- Pagination-->
                     <nav aria-label="Pagination">
@@ -66,7 +60,7 @@ export default {
 },
     data(){
         return{
-            article:[]
+            articles:[]
         }
     },
     created(){
@@ -74,8 +68,12 @@ export default {
         .then(({data}) => {
 
            let Article = Object.entries(data).map(([key, value]) =>{
-               
+            return{
+                key,
+                ...value
+            }
         }) 
+        this.articles = Article
         })
         .catch(err => console.log(err))
     },
