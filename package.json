@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "underscore": "^1.13.1",
     "vue": "^3.2.16"
   },
   "devDependencies": {
