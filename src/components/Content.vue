@@ -59,6 +59,7 @@ import Card from "./Card.vue";
 import Categories from "./Categories.vue";
 
 import axios from "axios";
+import _ from "underscore";
 
 export default {
     components:{
@@ -72,17 +73,17 @@ export default {
         }
     },
     created(){
-        axios.get('https://jsonplaceholder.typicode.com/posts')
-        .then(({data}) => {
-
-           let Article = Object.entries(data).map(([key, value]) =>{
-            return{
-                key,
-                ...value
-            }
+        axios.get('https://jsonplaceholder.typicode.com/posts?_page=1&_limit=9')
+        .then(res => {
+            let articles = res.data;
+            let main = articles.shift();
+           
+           
+            this.articles = [main,_.chunk(articles,2)]
+              
+              console.log(this.articles);
         }) 
-        this.articles = Article
-        })
+    
         .catch(err => console.log(err))
     },
 
