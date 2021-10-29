@@ -82,11 +82,8 @@ export default {
             let main = articles.shift();
            
             this.articles = [main, ... _.chunk(articles,2)]
-            console.log(res)
             this.page.currentPage = page
             this.page.totalPage = parseInt(parseInt(res.headers['x-total-count'] / 9))
-        
-            
 
         }) 
     
