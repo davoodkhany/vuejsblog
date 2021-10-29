@@ -6,31 +6,15 @@
                 <div class="col-lg-8">
                     <!-- Nested row for non-featured blog posts-->
                <div class="col-lg-12">
-                            <Card></Card>
+                    <Card  :post="articles[0]" ></Card>
                 </div>
                     <div class="row">
-                        <div class="col-lg-6">
-                            <Card></Card>
-                            <Card></Card>
-                        </div>
-                        <div class="col-lg-6">
-                            <Card></Card>
-                            <Card></Card>
+                        <div class="col-lg-6" v-for="(Groupby ,index) in articles.slice(1)" :key="index">
+                            <Card v-for="(article ,index ) in Groupby" :key="index" :post="article"></Card>
                         </div>
                     </div>
                     <!-- Pagination-->
-                    <nav aria-label="Pagination">
-                        <hr class="my-0">
-                        <ul class="my-4 pagination justify-content-center">
-                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
-                            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
-                        </ul>
-                    </nav>
+                    <Pagination :totalPage="page.totalPage"  :currentPage="page.currentPage" @ActivePagination="activePage" ></Pagination>
                 </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
@@ -57,6 +41,7 @@
 import searchbox from "./searchbox.vue";
 import Card from "./Card.vue";
 import Categories from "./Categories.vue";
+import Pagination from "./Pagination.vue";
 
 import axios from "axios";
 import _ from "underscore";
@@ -65,31 +50,48 @@ export default {
     components:{
     searchbox,
     Card,
-    Categories
+    Categories,
+    Pagination
 },
     data(){
         return{
-            articles:[]
+            articles:[],
+            page:{
+                currentPage:1,
+                totalPage :0,
+            }
+
         }
     },
     created(){
-        axios.get('https://jsonplaceholder.typicode.com/posts?_page=1&_limit=9')
-        .then(res => {
-            let articles = res.data;
-            let main = articles.shift();
-           
-           
-            this.articles = [main,_.chunk(articles,2)]
-              
-              console.log(this.articles);
-        }) 
-    
-        .catch(err => console.log(err))
+        this.getData(1);
     },
 
 
     methods:{
 
+        
+        activePage(page){
+            this.getData(page)            
+        },
+        
+        getData(page = 1){
+                    axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${page}&?_limit=9`)
+        .then(res => {
+            let articles = res.data;
+            let main = articles.shift();
+           
+            this.articles = [main, ... _.chunk(articles,2)]
+            console.log(res)
+            this.page.currentPage = page
+            this.page.totalPage = parseInt(parseInt(res.headers['x-total-count'] / 9))
+        
+            
+
+        }) 
+    
+        .catch(err => console.log(err))
+        }
     }
 }
 </script>
