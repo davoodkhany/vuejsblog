@@ -1,19 +1,48 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
+<template>
+
+
+  <form >
+
+  <input type="email" :value="email" name="email"  @input = "changeInpute" >
+  <input type="text"  :value="password" >
+
+    <h1>Content</h1>
+
+    <p>{{email}}</p>
+    <p>{{password}}</p>
+
+    <button type="submit">submit</button>
+
+
+  </form>
+
+
+</template>
+
+
+
+<script>
+
+export default { 
+  data(){
+    return { 
+       email: 'davoodkhany@gmail.com',
+       password: 'davoodkhany'       
+    }
+  },
+  methods:{
+    changeInpute(){
+
+        // console.log(e.target.changeInpute);
+      this[event.target.name] = event.target.data
+  
+    }
+  }
+}
 
 </script>
 
 
 
-<template>
 
-
-
-
-
-
-
-
-</template>
 
