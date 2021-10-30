@@ -1,5 +1,5 @@
 {
-  "name": "vuejsblog",
+  "name": "vite-project",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -7,8 +7,6 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "axios": "^0.24.0",
-    "underscore": "^1.13.1",
     "vue": "^3.2.16"
   },
   "devDependencies": {
