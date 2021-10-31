@@ -1,10 +1,10 @@
 <template>
 
 
-  <form >
+  <form @submit.prevent="submit" >
 
   <input type="email" :value="email" name="email"  @input = "changeInpute" >
-  <input type="text"  :value="password" >
+  <input type="text"  :value="password" name="password" @input = "changeInpute" >
 
     <h1>Content</h1>
 
@@ -31,10 +31,12 @@ export default {
     }
   },
   methods:{
-    changeInpute(){
 
-        // console.log(e.target.changeInpute);
-      this[event.target.name] = event.target.data
+    submit(){
+      console.log(this.email, this.password);
+    },
+    changeInpute(e){
+      this[e.target.name] = e.target.value
   
     }
   }
