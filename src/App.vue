@@ -1,73 +1,41 @@
 <template>
-  <form @submit.prevent="submit">
-    <input type="email" :value="email" name="email" @input="changeInpute" />
-    <span :class="{ 'danger': !isValidEmail }" v-show="!isValidEmail" >Email is valid</span>
-    <input
-      type="text"
-      :value="password"
-      name="password"
-      @input="changeInpute"
-    />
-    <span :class="{ 'danger': !isValidPassword }" v-show="!isValidPassword" >password is valid</span>
+  <div class="container mt-5">
+    <ul class="mb-3 nav nav-pills" id="pills-tab" role="tablist">
+  <li class="nav-item" role="presentation" v-for="tab in tabs" :key="tab.id" > 
+    <button class="nav-link " :class="{'active' : CurrentTab == tab.name }" @click="tabClick(tab.name)"  type="button" >{{ tab.name }}</button>
+  </li>
 
-    <h1>Content</h1>
+</ul>
 
-    <p>{{ email }}</p>
-    <p>{{ password }}</p>
-
-    <button type="submit">submit</button>
-  </form>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" v-for="tab in tabs" :key="tab.id" v-show="tab.name == CurrentTab">{{ tab.content }}</div>
+</div>
+  </div>
 </template>
 
 
 
 <script>
+
 export default {
-  data() {
-    return {
-      email: "davoodkhany@gmail.com",
-      password: "davoodkhany",
-    };
-  },
-  computed: {
-    isValidEmail() {
-      if (this.emailIsValid(this.email)) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isValidPassword() {
-      let i = this.password.length
-
-      if (i > 8) {
-        return true;
-      }else{
-        return false;
-      }
-
+  data(){
+    return { 
+      CurrentTab:'Home',
+      tabs:[
+        {id:1, name:'Home', content:'lorem ipsum dolor sit amet'},
+        {id:2, name:'About', content:'lorem ipsum dolor sit am' },
+        {id:3, name:'Contact', content:'lotrem ipsum dolor sit'}
+      ],
+      
     }
   },
   methods: {
-    submit() {
-      console.log(this.email, this.password)
-    },
+      tabClick(value){
+        this.CurrentTab = value;
+      }
+  }
+}
 
-    changeInpute(e) {
-      this[e.target.name] = e.target.value;
-    },
-    emailIsValid(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    },
-  },
-};
 </script>
 
 
-
-
-<style>
-.danger {
-  background-color: red;
-}
-</style>
