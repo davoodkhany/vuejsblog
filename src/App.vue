@@ -2,7 +2,7 @@
   <div class="container mt-5">
     <ul class="mb-3 nav nav-pills" id="pills-tab" role="tablist">
   <li class="nav-item" role="presentation" v-for="tab in tabs" :key="tab.id" > 
-    <button class="nav-link " :class="{'active' : CurrentTab == tab.name }" @click="tabClick(tab.name)"  type="button" >{{ tab.name }}</button>
+    <button class="nav-link " :class="{'active' : CurrentTab == tab.name }" @click="CurrentTab = tab.name"  type="button" >{{ tab.name }}</button>
   </li>
 
 </ul>
@@ -29,11 +29,7 @@ export default {
       
     }
   },
-  methods: {
-      tabClick(value){
-        this.CurrentTab = value;
-      }
-  }
+  
 }
 
 </script>
