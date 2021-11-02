@@ -13,6 +13,8 @@
 import Header from "./components/Header.vue";
 import AddToDo from "./components/AddToDo.vue";
 import ToDo from "./components/ToDo.vue";
+import axios from "axios";
+
 export default {
   components: {
     Header,
@@ -29,28 +31,40 @@ export default {
       ],
     };
   },
+  
+  created(){ 
+    axios.get("",params)
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err => {
+      console.error(err); 
+    })
+  },
 
   methods: {
-    todoadd(value) {
-     this.todos.push({ id: Date.now(), Content: value});
-    },
-    deleteToDo(value) { 
-      this.todos = this.todos.filter(todo => todo.id != value)
-    },
-    updateToDo(id, Content){
 
-          this.todos = this.todos.map((todo) => {
-           if(todo.id == id){
-             return{
-               ...id, Content
-             }
-           }else{
-             return todo;
-           }
-        })
-       
-  
-    }
+    todoadd(value) {
+      this.todos.push({ id: Date.now(), Content: value });
+    },
+
+
+    deleteToDo(value) {
+      this.todos = this.todos.filter((todo) => todo.id != value);
+    },
+
+    updateToDo(id, Content) {
+      this.todos = this.todos.map((todo) => {
+        if (todo.id == id) {
+          return {
+            ...id,
+            Content,
+          };
+        } else {
+          return todo;
+        }
+      });
+    },
   },
 };
 </script>
