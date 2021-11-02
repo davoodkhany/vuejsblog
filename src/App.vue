@@ -3,7 +3,7 @@
 
   <main>
     <AddToDo @todoadd="todoadd"></AddToDo>
-    <ToDo :todos="todos" @delete="deleteToDo"></ToDo>
+    <ToDo :todos="todos" @delete="deleteToDo" @update="updateToDo"></ToDo>
   </main>
 </template>
 
@@ -36,6 +36,20 @@ export default {
     },
     deleteToDo(value) { 
       this.todos = this.todos.filter(todo => todo.id != value)
+    },
+    updateToDo(id, Content){
+
+          this.todos = this.todos.map((todo) => {
+           if(todo.id == id){
+             return{
+               ...id, Content
+             }
+           }else{
+             return todo;
+           }
+        })
+       
+  
     }
   },
 };

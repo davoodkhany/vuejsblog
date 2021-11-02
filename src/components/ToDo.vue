@@ -10,15 +10,24 @@
                         </nav>
  
                         <div class="mb-2 col-6" v-for="todo in todos" :key="todo.id">
-                            <div class="p-3 border rounded d-flex justify-content-between align-items-center">
+
+
+                            <div  v-if="edit == false" class="p-3 border rounded d-flex justify-content-between align-items-center">
+                                    <div >
+                                        {{ todo.Content }}
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-info btn-sm" @click="Edittodo(todo.Content,todo.id)" >edit</button>
+                                        <button class="ml-1 btn btn-danger btn-sm" @click="$emit('delete' , todo.id)">delete</button>
+                                    </div>
+                            </div>
+                                <div v-else v-show="todo.id == id" >
+                                <input type="text" v-model="Content" class="form-control">
                                 <div>
-                                    {{ todo.Content }}
-                                </div>
-                                <div>
-                                    <button class="btn btn-info btn-sm" >edit</button>
-                                    <button class="ml-1 btn btn-danger btn-sm" @click="$emit('delete' , todo.id)">delete</button>
+                                    <button class="ml-1 btn btn-danger btn-sm" @click="update(id, Content)">Update</button>
                                 </div>
                             </div>
+
                         </div>
  
                     </div>
@@ -32,9 +41,31 @@
 <script>
 
     export default {
+        emits:['Edittodo', 'update'],
         props:[
             'todos'
         ],
+
+        data(){
+            return {
+                edit:false,
+                id:0,
+                Content:'',
+            }
+        },
+
+        methods:{
+            Edittodo(value , id){
+                this.edit = true,    
+                this.id = id,
+                this.Content = value
+            },
+            update(id,Content){
+                
+                this.$emit('update',id,Content)
+                 this.edit = false    
+            }
+        }
     }
 
 </script>
