@@ -26,6 +26,7 @@
                 this.$emit('todoadd', this.todo)
                 this.todo = ""
                } 
+
         }
     }
 

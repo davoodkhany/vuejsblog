@@ -3,7 +3,7 @@
 
   <main>
     <AddToDo @todoadd="todoadd"></AddToDo>
-    <ToDo :todos="todos"></ToDo>
+    <ToDo :todos="todos" @delete="deleteToDo"></ToDo>
   </main>
 </template>
 
@@ -33,8 +33,10 @@ export default {
   methods: {
     todoadd(value) {
      this.todos.push({ id: Date.now(), Content: value});
-    
     },
+    deleteToDo(value) { 
+      this.todos = this.todos.filter(todo => todo.id != value)
+    }
   },
 };
 </script>

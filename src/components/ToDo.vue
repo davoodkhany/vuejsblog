@@ -15,8 +15,8 @@
                                     {{ todo.Content }}
                                 </div>
                                 <div>
-                                    <button class="btn btn-info btn-sm">edit</button>
-                                    <button class="ml-1 btn btn-danger btn-sm">delete</button>
+                                    <button class="btn btn-info btn-sm" >edit</button>
+                                    <button class="ml-1 btn btn-danger btn-sm" @click="$emit('delete' , todo.id)">delete</button>
                                 </div>
                             </div>
                         </div>
