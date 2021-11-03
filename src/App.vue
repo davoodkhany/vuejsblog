@@ -40,19 +40,23 @@ export default {
 
     todoadd(value) {
       axios.post("https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json",{value})
-
+              .then(res => {
       this.todos.push({ id: Date.now(), Content: value });
+      })
+      .catch(err => {
+        console.error(err); 
+      })
     },
 
     deleteToDo(value) {
-      // axios.delete("https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json",value)
-      // .then(res => {
-      //   console.log(res)
-      // })
-      // .catch(err => {
-      //   console.error(err); 
-      // })
-      this.todos = this.todos.filter((todo) => todo.id != value);
+      axios.delete("https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json",value)
+      .then(res => {
+        this.todos = this.todos.filter((todo) => todo.id != value);
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+     
     },
 
     updateToDo(id, Content) {
