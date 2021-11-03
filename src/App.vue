@@ -25,29 +25,43 @@ export default {
   data() {
     return {
       todos: [
-        { id: 1, Content: "Test" },
-        { id: 2, Content: "davood" },
-        { id: 3, Content: "Test" },
+        { id: 1, Content: "Test", done: true },
+        { id: 2, Content: "davood", done: true },
+        { id: 3, Content: "Test", done: true },
       ],
     };
   },
-  
-  created(){ 
-    axios.get("",params)
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => {
-      console.error(err); 
-    })
+
+  created() {
+    this.getData('todo.json')
   },
 
+
   methods: {
+
+    getData(){
+        axios
+      .get(
+        `https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json`
+      )
+      .then(({ data }) => {
+        let todo = Object.entries(data).map(([id, Content]) => {
+          return {
+            id,
+            Content: Content.todo.text,
+            done: Content.todo.done,
+          };
+        });
+        this.todos = todo;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    },
 
     todoadd(value) {
       this.todos.push({ id: Date.now(), Content: value });
     },
-
 
     deleteToDo(value) {
       this.todos = this.todos.filter((todo) => todo.id != value);
@@ -65,6 +79,7 @@ export default {
         }
       });
     },
+
   },
 };
 </script>
