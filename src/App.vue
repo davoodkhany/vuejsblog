@@ -41,7 +41,8 @@ export default {
     todoadd(value) {
       axios.post("https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json",{value})
               .then(res => {
-      this.todos.push({ id: Date.now(), Content: value });
+          this.getData("todo.json");
+      // this.todos.push({ id: Date.now(), Content: value });
       })
       .catch(err => {
         console.error(err); 
@@ -59,17 +60,27 @@ export default {
      
     },
 
-    updateToDo(id, Content) {
-      this.todos = this.todos.map((todo) => {
-        if (todo.id == id) {
-          return {
-            ...id,
-            Content,
-          };
-        } else {
-          return todo;
-        }
-      });
+    updateToDo( id, value) {
+    
+      axios.put(`https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/${id}.json`,
+    { todo: {id, value }} ) )
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+
+      // this.todos = this.todos.map((todo) => {
+      //   if (todo.id == id) {
+      //     return {
+      //       ...id,
+      //       Content:todo.value,
+      //     };
+      //   } else {
+      //     return todo;
+      //   }
+      // });
     },
         getData() {
       axios
