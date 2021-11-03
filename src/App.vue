@@ -25,45 +25,33 @@ export default {
   data() {
     return {
       todos: [
-        { id: 1, Content: "Test", done: true },
-        { id: 2, Content: "davood", done: true },
-        { id: 3, Content: "Test", done: true },
+        { id: 1, Content: "Test" },
+        { id: 2, Content: "davood" },
+        { id: 3, Content: "Test" },
       ],
     };
   },
 
   created() {
-    this.getData('todo.json')
+    this.getData("todo.json");
   },
-
 
   methods: {
 
-    getData(){
-        axios
-      .get(
-        `https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json`
-      )
-      .then(({ data }) => {
-        let todo = Object.entries(data).map(([id, Content]) => {
-          return {
-            id,
-            Content: Content.todo.text,
-            done: Content.todo.done,
-          };
-        });
-        this.todos = todo;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    },
-
     todoadd(value) {
+      axios.post("https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json",{value})
+
       this.todos.push({ id: Date.now(), Content: value });
     },
 
     deleteToDo(value) {
+      // axios.delete("https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json",value)
+      // .then(res => {
+      //   console.log(res)
+      // })
+      // .catch(err => {
+      //   console.error(err); 
+      // })
       this.todos = this.todos.filter((todo) => todo.id != value);
     },
 
@@ -79,7 +67,29 @@ export default {
         }
       });
     },
+        getData() {
+      axios
+        .get(
+          `https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json`
+        )
+        .then(({ data }) => {
+        if(data != null) {
+          let todo = Object.entries(data).map(([id, value]) => {
 
+            return {
+              id,
+              Content: value.value
+
+            };
+          });
+          this.todos = todo;
+        }
+        })
+        
+        .catch((err) => {
+          console.error(err);
+        });
+    },
   },
 };
 </script>
