@@ -1,19 +1,23 @@
 <template>
   <Header></Header>
-
   <main>
+
     <AddToDo @todoadd="todoadd"></AddToDo>
-    <ToDo :todos="todos" @delete="deleteToDo" @update="updateToDo"></ToDo>
+
+    <ToDo :todos="todos" @delete="deleteToDo" @update="updateToDo" v-if=" !loding"></ToDo>
+
+    <div v-else>Loding</div>
+
   </main>
 </template>
-
 
 
 <script>
 import Header from "./components/Header.vue";
 import AddToDo from "./components/AddToDo.vue";
 import ToDo from "./components/ToDo.vue";
-import axios from "axios";
+import axios from "./Api/apiAxios"
+
 
 export default {
   components: {
@@ -29,6 +33,9 @@ export default {
         { id: 2, Content: "davood" },
         { id: 3, Content: "Test" },
       ],
+
+       loding:false
+
     };
   },
 
@@ -39,7 +46,7 @@ export default {
   methods: {
 
     todoadd(value) {
-      axios.post("https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json",{value})
+      axios.post("/todo.json",{value})
               .then(res => {
           this.getData("todo.json");
       // this.todos.push({ id: Date.now(), Content: value });
@@ -50,7 +57,7 @@ export default {
     },
 
     deleteToDo(value) {
-      axios.delete("https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json",value)
+      axios.delete("/todo.json",value)
       .then(res => {
         this.todos = this.todos.filter((todo) => todo.id != value);
       })
@@ -62,8 +69,8 @@ export default {
 
     updateToDo( id, value) {
     
-      axios.put(`https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/${id}.json`,
-    { todo: {id, value }} ) )
+      axios.put(`/${id}.json`,
+        { todo: {id: id, value:value }})
       .then(res => {
         console.log(res);
       })
@@ -83,12 +90,14 @@ export default {
       // });
     },
         getData() {
+          this.loding  = true;
       axios
         .get(
-          `https://vuejs-ca936-default-rtdb.europe-west1.firebasedatabase.app/todo.json`
+          `/todo.json`
         )
         .then(({ data }) => {
         if(data != null) {
+          this.loding = false;
           let todo = Object.entries(data).map(([id, value]) => {
 
             return {
