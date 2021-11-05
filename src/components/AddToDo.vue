@@ -36,8 +36,6 @@
 </script>
 
 
-<style>
-    div{
-        background-color: aqua;
-    }
+<style scoped lang="sass">
+    
 </style>
