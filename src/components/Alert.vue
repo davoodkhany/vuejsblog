@@ -1,12 +1,9 @@
 <template>
   <div class="alert alert-success" role="alert">
-    <div v-if="$slots.title">
-      <slot name="title">
-        <h2>Default page</h2>
-      </slot>
-    </div>
-    <slot></slot>
-    <hr />
-    <slot name="description"></slot>
+
+        <slot name="title"><h2>My Name Is Ali</h2></slot>
+        <slot></slot>
+
+        <slot name="description">name</slot>
   </div>
 </template>
