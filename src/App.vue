@@ -12,7 +12,9 @@
         spacing within an alert works with this kind of content.
       </p>
       <hr />
-      <template v-slot:description>
+      <template v-slot:description="title">
+              <h3>  {{ title.item }}</h3>
+
         <p class="mb-0">
           Whenever you need to, be sure to use margin utilities to keep things
           nice and tidy.
@@ -56,7 +58,7 @@ export default {
         { id: 2, Content: "davood" },
         { id: 3, Content: "Test" },
       ],
-
+  
       loding: false,
     };
   },
