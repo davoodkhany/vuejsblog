@@ -1,140 +1,45 @@
 <template>
-  <Header></Header>
-  <main>
-    <Alert>
-      <template v-slot:title>
-        <h2>My Name Is Davood</h2>
-      </template>
-      <h4 class="alert-heading">Well done!</h4>
-      <p>
-        Aww yeah, you successfully read this important alert message. This
-        example text is going to run a bit longer so that you can see how
-        spacing within an alert works with this kind of content.
-      </p>
-      <hr />
-      <template v-slot:description="title">
-              <h3>  {{ title.item }}</h3>
+        <my-nav :page="currentPage" @changePage="currentPage = $event"></my-nav>
 
-        <p class="mb-0">
-          Whenever you need to, be sure to use margin utilities to keep things
-          nice and tidy.
-        </p>
-      </template>
-    </Alert>
+        <component :is="currentPage"></component>
 
-    <AddToDo @todoadd="todoadd"></AddToDo>
+        <my-footer></my-footer>
 
-    <ToDo
-      :todos="todos"
-      @delete="deleteToDo"
-      @update="updateToDo"
-      v-if="!loding"
-    ></ToDo>
+        
 
-    <div v-else>Loding</div>
-  </main>
 </template>
 
-
 <script>
-import Header from "./components/Header.vue";
-import AddToDo from "./components/AddToDo.vue";
-import ToDo from "./components/ToDo.vue";
-import axios from "./Api/apiAxios";
-import Alert from "./components/Alert.vue";
 
-export default {
-  components: {
-    Header,
-    AddToDo,
-    ToDo,
-    Alert,
-  },
+  import Nav from './components/layouts/Nav.vue';
+  import Footer from './components/layouts/Footer.vue';
 
-  data() {
-    return {
-      todos: [
-        { id: 1, Content: "Test" },
-        { id: 2, Content: "davood" },
-        { id: 3, Content: "Test" },
-      ],
-  
-      loding: false,
-    };
-  },
+  import Home from './components/pages/Home.vue'
+  import Contact from './components/pages/Contact.vue'
+  import About from './components/pages/About.vue'
 
-  created() {
-    this.getData("todo.json");
-  },
 
-  methods: {
-    todoadd(value) {
-      axios
-        .post("/todo.json", { value })
-        .then((res) => {
-          this.getData("todo.json");
-          // this.todos.push({ id: Date.now(), Content: value });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+  export default {
+    components : {
+      'my-nav' :Nav,
+      'my-footer' : Footer,
+      Home,
+      Contact,
+      About
     },
-
-    deleteToDo(value) {
-      axios
-        .delete("/todo.json", value)
-        .then((res) => {
-          this.todos = this.todos.filter((todo) => todo.id != value);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    },
-
-    updateToDo(id, value) {
-      axios
-        .put(`/${id}.json`, { todo: { id: id, value: value } })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-
-      // this.todos = this.todos.map((todo) => {
-      //   if (todo.id == id) {
-      //     return {
-      //       ...id,
-      //       Content:todo.value,
-      //     };
-      //   } else {
-      //     return todo;
-      //   }
-      // });
-    },
-    getData() {
-      this.loding = true;
-      axios
-        .get(`/todo.json`)
-        .then(({ data }) => {
-          if (data != null) {
-            this.loding = false;
-            let todo = Object.entries(data).map(([id, value]) => {
-              return {
-                id,
-                Content: value.value,
-              };
-            });
-            this.todos = todo;
-          }
-        })
-
-        .catch((err) => {
-          console.error(err);
-        });
-    },
-  },
-};
+    data() {
+      return {
+        currentPage : 'home'
+      }
+    }
+  }
 </script>
 
+<style>
+.card_shop .flex_column_table{
+    background: white;
+    padding: 20px;
+    border-radius: 24px;
+}
 
+</style>
