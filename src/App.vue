@@ -1,7 +1,9 @@
 <template>
   <my-nav :page="currentPage" @changePage="currentPage = $event"></my-nav>
   <keep-alive>
+
     <component :is="currentPage"></component>
+    
   </keep-alive>
 
   <my-footer></my-footer>
@@ -17,11 +19,11 @@ export default {
   components: {
     "my-nav": Nav,
     "my-footer": Footer,
-    home: defineAsyncComponent(() => import("./components/pages/Home.vue")),
-    contact: defineAsyncComponent(() =>
+    'home': defineAsyncComponent(() => import("./components/pages/Home.vue")),
+    'contact': defineAsyncComponent(() =>
       import("./components/pages/Contact.vue")
     ),
-    about: defineAsyncComponent(() => import("./components/pages/About.vue")),
+    'about': defineAsyncComponent(() => import("./components/pages/About.vue"))
   },
   data() {
     return {
