@@ -17,8 +17,8 @@
 
 
 <script>
-import Header from "./../layouts/Header.vue";
-import Sidebar from "./../layouts/Sidebar.vue";
+import Header from "./../layouts/TheHeader.vue";
+import Sidebar from "./../layouts/TheSidebar.vue";
 import PostList from "./../PostList.vue";
 import mixin from "./../mixin/mixins"
 

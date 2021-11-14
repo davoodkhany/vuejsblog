@@ -16,7 +16,7 @@
 export default {
     data() {
         return {
-            title : 'hi hesam'
+            title : 'hi davood'
         }
     },
     mounted() {
