@@ -1,6 +1,6 @@
 <template>
     <h2>About Page</h2>
-    <h1>{{name.firstName}}</h1>
+    <h1 @click="changeLastName('ali')">{{name.firstName}}</h1>
 </template>
 
 <script>
@@ -12,12 +12,14 @@ export default {
             firstName:'davood',
             lastName: 'khany'
         })
-        setTimeout(() => {
-            name.firstName = 'ali'
-        }, 2000);
+
+        function changeLastName(names){
+            name.firstName = names
+        }
 
         return {
-            name
+            name,
+            changeLastName
         }
 
 
