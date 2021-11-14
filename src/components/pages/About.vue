@@ -1,6 +1,10 @@
 <template>
     <h2>About Page</h2>
-    <h1 @click="changeLastName('ali')">{{name.firstName}}</h1>
+    <form @submit.prevent="changeData">
+        <input type="text" v-model="form.name" >
+        <input type="text" v-model="form.family">
+        <button type="submit">Submit</button>
+    </form>
 </template>
 
 <script>
@@ -8,18 +12,21 @@ import {ref,reactive} from 'vue'
 export default {
     setup(){
 
-        const name = reactive({
-            firstName:'davood',
-            lastName: 'khany'
+        const form = reactive({
+            name:'',
+            family:''
         })
 
-        function changeLastName(names){
-            name.firstName = names
+
+        function changeData() {
+           
+           console.log(form);
+            
         }
 
         return {
-            name,
-            changeLastName
+            form,
+            changeData
         }
 
 
