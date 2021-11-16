@@ -9,7 +9,7 @@
   <div class="container">
     <div class="row">
       <!-- Blog entries-->
-      <post-list></post-list>
+      <PostList></PostList>
       <sidebar></sidebar>
     </div>
   </div>
@@ -19,18 +19,15 @@
 <script>
 import Header from "./../layouts/TheHeader.vue";
 import Sidebar from "./../layouts/TheSidebar.vue";
-import PostList from "./../PostList.vue";
-import mixin from "./../mixin/mixins"
+import PostList from "./../PostListItem.vue";
+import mixin from "./../mixin/mixins";
 
 export default {
-     mixins: [mixin],
+  mixins: [mixin],
   components: {
     "my-header": Header,
     PostList,
     Sidebar,
   },
-
- 
-  
 };
 </script>
