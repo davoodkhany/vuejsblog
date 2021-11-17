@@ -40,4 +40,5 @@ export default {
   padding: 20px;
   border-radius: 24px;
 }
+
 </style>
