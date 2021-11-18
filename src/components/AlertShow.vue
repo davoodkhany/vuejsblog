@@ -13,14 +13,23 @@
 
 
 <script>
+
+import {onMounted}  from 'vue';
+
 export default {
-    data() {
-        return {
-            title : 'hi davood'
+
+    setup(){
+       const  title = 'hi davood'
+        
+        function  onMounted(){
+            console.log('davood');
         }
-    },
-    mounted() {
-        console.log(this.$slots)
+        
+        return { 
+        title
+            
+        }
     }
+    
 }
 </script>
