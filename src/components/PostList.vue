@@ -8,8 +8,8 @@
     /></a>
     <div class="card-body">
       <div class="small text-muted">January 1, 2021</div>
-      <!-- <h2 class="card-title h4">{{ post.title }}</h2>
-      <p class="card-text">{{ post.body }}</p> -->
+     <h2 class="card-title h4">{{ title }}</h2>
+      <p class="card-text">{{body }}</p>
       <a class="btn btn-primary" href="#!">Read more →</a>
     </div>
   </div>
@@ -17,8 +17,32 @@
 
 
 <script>
+
+import {reactive, computed,toRefs} from 'vue';
+
 export default {
-  props: ['post']
+  props: {
+    post:{
+      type: Object
+    }
+  },
+
+  setup(props){
+
+    const {title, body} = reactive(props.post)
+    
+    
+    
+
+    // const title = computed(()=> props.title)
+    
+  
+    return {
+      title , body
+    }
+  }
+
+
 
 
 };

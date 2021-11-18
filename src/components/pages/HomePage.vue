@@ -1,4 +1,5 @@
 <template>
+ 
   <my-header></my-header>
 
   <button class="btn btn-danger" @click="ShowModals">ShowModal</button>

@@ -70,6 +70,9 @@ export default {
     Pagination,
     Alert,
   },
+
+
+
   data() {
     return {
       posts: null,
