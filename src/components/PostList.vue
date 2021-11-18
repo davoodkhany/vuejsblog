@@ -30,12 +30,6 @@ export default {
   setup(props){
 
     const {title, body} = reactive(props.post)
-    
-    
-    
-
-    // const title = computed(()=> props.title)
-    
   
     return {
       title , body

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-
+  import {reactive,toRefs} from 'vue'
 export default {
     
     props:{
@@ -28,6 +28,16 @@ export default {
             required:true,
         }
     },
+
+
+  setup(props){
+    
+      var {active} = toRefs(props);
+     
+      return {
+        active
+      }
+  }
 }
 
 </script>
