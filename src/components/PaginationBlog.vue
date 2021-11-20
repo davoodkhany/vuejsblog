@@ -17,11 +17,9 @@
       <li
         class="page-item"
         v-for="page in pages"
-
         :key="page.name"
         :class="{ active: page.isActive }"
       >
-      
         <button
           type="button"
           @click="onClickPage(page.name)"
@@ -47,8 +45,7 @@
 </template>
 
 <script>
-import { computed, toRefs, ref } from "vue";
-
+import { toRefs, reactive, computed } from "vue";
 export default {
   props: {
     totalPage: {
@@ -67,60 +64,43 @@ export default {
   },
 
   setup(props, context) {
-    let  prop = computed(() => props);
-    let currentPage = prop.value.currentPage
-    let totalPage = prop.value.totalPage
-    let maxVisibleButtos = prop.value.maxVisibleBut
+    const { totalPage, currentPage, maxVisibleButtos } = toRefs(props);
 
-    console.log(currentPage);
+    const startPage = computed(() => {
+      if (currentPage.value === 1) return 1;
 
-    function startPage() {
-      if (currentPage === 1) return 1;
+      if (currentPage.value === totalPage) return totalPage - 4;
 
-      if (currentPage === totalPage) return totalPage - 4;
+      return currentPage.value - 2;
+    });
 
-      return currentPage - 2;
-    }
-    function endPage() {
-      return Math.min(
-        startPage + maxVisibleButtos - 1,
-        totalPage
-      );
-    }
-    function pages() {
+    const endPage = computed(() => {
+      return Math.min(startPage.value + maxVisibleButtos.value - 1, totalPage.value);
+    });
+    const pages = computed(() => {
       let range = [];
-      
-      for (let i = startPage; i <= endPage; i++) {
+
+      for (let i = startPage.value; i <= endPage.value; i++) {
         range.push({
           name: i,
-          isActive: i === currentPage,
+          isActive: i === currentPage.value,
         });
       }
-      return range;
-    }
 
-    function isInFirstPage() {
-      return currentPage === 1;
-    }
-    function isInLastPage() {
-      return currentPage === totalPage;
-    }
+      return range;
+    });
+
+    const isInFirstPage = computed(() => {
+      return currentPage.value == 1;
+    });
+    const isInLastPage = computed(() => {
+      return currentPage.value === totalPage;
+    });
+
     function onClickPage(page) {
       context.emit("pagechanged", page);
     }
-
-    return {
-      startPage,
-      pages,
-      isInFirstPage,
-      isInLastPage,
-      endPage,
-      onClickPage,
-      currentPage,
-      totalPage,
-      maxVisibleButtos
-      
-    };
+    return { pages, isInFirstPage, isInLastPage, onClickPage };
   },
 };
 </script>
