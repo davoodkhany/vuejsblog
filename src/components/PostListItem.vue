@@ -63,6 +63,7 @@ import axios from "axios";
 import _ from "underscore";
 import Pagination from "./PaginationBlog.vue";
 import Alert from "./AlertShow.vue";
+import { ref, reactive } from "vue";
 
 export default {
   components: {
@@ -71,45 +72,42 @@ export default {
     Alert,
   },
 
-
-
-  data() {
-    return {
-      posts: null,
-      loading: false,
-      page: {
-        current: 1,
-        totalPage: 0,
-      },
-    };
-  },
-  created() {
-    this.getPostData(1);
-  },
-  methods: {
-    changePage(page) {
-      this.getPostData(page);
-    },
-    getPostData(page = 1) {
-      this.loading = true;
+  setup() {
+    const posts = ref([]);
+    const loading = ref(false);
+    const page = reactive({
+      current: 1,
+      totalPage: 0,
+    });
+    getPostData(1);
+    function getPostData(pageNumber = 1) {
+      loading.value = true;
       axios
         .get(
-          `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=9`
+          `https://jsonplaceholder.typicode.com/posts?_page=${pageNumber}&_limit=9`
         )
         .then((res) => {
-          this.loading = false;
-          this.posts = res.data;
-          let mainPost = this.posts.shift();
+          loading.value = false;
+          posts.value = res.data;
+          let mainPost = posts.value.shift();
 
-          this.posts = [mainPost, ..._.chunk(this.posts, 2)];
-          this.page.current = page;
-          this.page.totalPage = parseInt(
-            parseInt(res.headers["x-total-count"]) / 9
-          );
-          console.log(this.page);
+          posts.value = [mainPost, ..._.chunk(posts.value, 2)];
+          page.current = pageNumber;
+          page.totalPage = parseInt(parseInt(res.headers["x-total-count"]) / 9);
         })
         .catch((err) => console.log(err));
-    },
+    }
+
+    function changePage(page) {
+      getPostData(page);
+    }
+
+    return {
+      posts,
+      loading,
+      page,
+      changePage
+    };
   },
 };
 </script>

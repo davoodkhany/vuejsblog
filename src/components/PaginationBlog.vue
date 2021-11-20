@@ -17,9 +17,11 @@
       <li
         class="page-item"
         v-for="page in pages"
+
         :key="page.name"
         :class="{ active: page.isActive }"
       >
+      
         <button
           type="button"
           @click="onClickPage(page.name)"
