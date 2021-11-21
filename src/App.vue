@@ -1,5 +1,5 @@
 <template>
-  <my-nav :page="currentPage" @changePage="currentPage = $event"></my-nav>
+  <my-nav></my-nav>
 
   <router-view></router-view>
 
