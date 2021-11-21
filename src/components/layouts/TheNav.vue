@@ -32,3 +32,9 @@ export default {
     props : ['page']
 }
 </script>
+
+<style scoped>
+    .router-link-active{
+        color: rgb(255, 0, 0, 0.87) !important;
+    }
+</style>
