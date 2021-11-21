@@ -1,10 +1,7 @@
 <template>
   <my-nav :page="currentPage" @changePage="currentPage = $event"></my-nav>
-  <keep-alive>
 
-    <component :is="currentPage"></component>
-    
-  </keep-alive>
+  <router-view></router-view>
 
   <my-footer></my-footer>
 </template>
@@ -19,16 +16,6 @@ export default {
   components: {
     "my-nav": Nav,
     "my-footer": Footer,
-    'home': defineAsyncComponent(() => import("./components/pages/HomePage.vue")),
-    'contact': defineAsyncComponent(() =>
-      import("./components/pages/ContactPage.vue")
-    ),
-    'about': defineAsyncComponent(() => import("./components/pages/AboutPage.vue"))
-  },
-  data() {
-    return {
-      currentPage: "home",
-    };
   },
 };
 </script>
