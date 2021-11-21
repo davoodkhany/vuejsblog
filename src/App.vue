@@ -1,7 +1,8 @@
 <template>
   <my-nav></my-nav>
-
   <router-view></router-view>
+
+                   
 
   <my-footer></my-footer>
 </template>
