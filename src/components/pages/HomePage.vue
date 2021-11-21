@@ -21,14 +21,26 @@
 import Header from "./../layouts/TheHeader.vue";
 import Sidebar from "./../layouts/TheSidebar.vue";
 import PostList from "./../PostListItem.vue";
-import mixin from "./../mixin/mixins";
-
+// import mixin from "./../mixin/mixins";
+import ShowModal from "./../ShowModal.vue"
+import ModalHook from './../../hook/ModalHook'
 export default {
-  mixins: [mixin],
+  
+  // mixins: [mixin],
+
   components: {
     "my-header": Header,
     PostList,
     Sidebar,
+    ShowModal
+    
   },
+  setup(){
+    const [ActiveModal,ShowModals, CloseModal] = ModalHook();
+ 
+    return {
+      ActiveModal,CloseModal,ShowModals
+    }
+  }
 };
 </script>
