@@ -8,36 +8,37 @@
     /></a>
     <div class="card-body">
       <div class="small text-muted">January 1, 2021</div>
-     <h2 class="card-title h4">{{ title }}</h2>
-      <p class="card-text">{{body }}</p>
-      <a class="btn btn-primary" href="#!">Read more →</a>
+      <h2 class="card-title h4">{{ title }}</h2>
+      <p class="card-text">{{ body }}</p>
+      <router-link  class="btn btn-primary" :to="{ path:`/singleblog/${id}`}">Read more →</router-link>
+  
     </div>
   </div>
 </template>
 
 
 <script>
-
-import {reactive, computed,toRefs} from 'vue';
-
+import { reactive, computed, toRefs } from "vue";
+import {  useRouter } from "vue-router";
 export default {
   props: {
-    post:{
-      type: Object
-    }
+    post: {
+      type: Object,
+    },
   },
 
-  setup(props){
+  setup(props) {
+    const { title, body, id } = reactive(props.post);
 
-    const {title, body} = reactive(props.post)
-  
+    
+   
+    
+   
     return {
-      title , body
-    }
-  }
-
-
-
-
+      title,
+      body,
+      id,
+    };
+  },
 };
 </script>

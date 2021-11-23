@@ -12,12 +12,8 @@
     export default{
     created(){
         console.log(this.$route.params);    
-    }
+    },
 
-    // setup(){
-    //     const router = useRoute();
-    //     console.log(router.params);
-    // }
     }
 
 </script>
