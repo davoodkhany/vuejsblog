@@ -14,6 +14,7 @@
 <script>
 import {ref,reactive,computed, toRefs, watch} from 'vue'
 import ShowFormData from '../ShowFormData.vue';
+import { useRoute } from 'vue-router';
 export default {
     setup() {
         const form = reactive({
@@ -24,6 +25,11 @@ export default {
         watch(name, function (newVal, oldVal) {
             console.log(newVal, oldVal);
         });
+
+        const route = useRoute();
+
+        form.name = route.query.name
+        form.family = route.query.family
         // function changeData() {
         //    console.log(form);
         // }
