@@ -24,6 +24,8 @@
 import TheSidebar from "./layouts/TheSidebar.vue";
 import axios from "axios";
 export default {
+
+  props:['id'],
   components: {
     sidebar: TheSidebar,
   },
@@ -34,20 +36,20 @@ export default {
     };
   },
   created() {
-    this.getData(this.$route);
-    // this.getData(this.$route.params)
+    this.getData(this.id);
+  
   },
   watch: {
-    $route(newRoute) {
-      this.getData(newRoute);
+    id(data) {
+      this.getData(data);
     },
   },
 
   methods: {
-    getData(route) {
-      const postId = route.params.id;
+    getData(id) {
+      // const postId = route.params.id;
       axios
-        .get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+        .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then(({ data }) => {
           let date = {
             body: data.body,
@@ -61,9 +63,7 @@ export default {
           const {status} = err.response
 
           if(status == 404) {
-
-           return this.$route.push('/404')
-
+           return this.$router.push({name:'NotFound'})
           }
 
           console.log(err);

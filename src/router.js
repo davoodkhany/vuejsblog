@@ -29,7 +29,9 @@ const routes = [{
     },
     {
         path: '/singleblog/:id',
-        component: SingleBlog
+        component: SingleBlog,
+        props: true
+
     },
     {
         path: '/:pathMatch(.*)*',
