@@ -53,6 +53,9 @@ const routes = [{
         path: '/panel',
         component: HomePagePanel,
         name: 'HomePagePanel',
+        meta: {
+            requiredAuth: true
+        },
         children: [{
             path: 'payment',
             component: Payment,
@@ -84,10 +87,14 @@ const router = createRouter({
 
 router.beforeEach(function (to, from, next) {
 
-    if (/^\/panel/.test(to.path) && ! checkUserIsAuth()) {
-        return next('/login');
-    }
-    next()
+    if (to.meta.requiredAuth && !checkUserIsAuth())
+        next('/login')
+    else next()
+
+    // if (/^\/panel/.test(to.path) && !checkUserIsAuth()) {
+    //     return next('/login');
+    // }
+    // next()
 })
 
 
