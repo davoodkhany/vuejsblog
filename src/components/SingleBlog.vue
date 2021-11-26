@@ -24,8 +24,7 @@
 import TheSidebar from "./layouts/TheSidebar.vue";
 import axios from "axios";
 export default {
-
-  props:['id'],
+  props: ["id"],
   components: {
     sidebar: TheSidebar,
   },
@@ -35,9 +34,26 @@ export default {
       data: [],
     };
   },
+
+  // beforeRouteEnter(to, from, next) {
+  //   next("/login");
+  // },
+
   created() {
     this.getData(this.id);
-  
+  },
+  //   beforeRouteUpdate(to, from, next) {
+  //   this.getData(to.params.id);
+  //   next()
+  //    return this.$route.push(`/singleblog/${to.params.id}`)
+  // },
+  beforeRouteLeave(to, from,next) {
+    const status = window.confirm("Are you sure you want to leave");
+    if (status) {
+      next()
+    } else {
+    next('/login');
+    }
   },
   watch: {
     id(data) {
@@ -59,11 +75,11 @@ export default {
           };
           return (this.data = date);
         })
-        .catch( err =>{
-          const {status} = err.response
+        .catch((err) => {
+          const { status } = err.response;
 
-          if(status == 404) {
-           return this.$router.push({name:'NotFound'})
+          if (status == 404) {
+            return this.$router.push({ name: "NotFound" });
           }
 
           console.log(err);
