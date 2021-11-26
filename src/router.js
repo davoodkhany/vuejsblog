@@ -8,7 +8,9 @@ import AboutPage from './components/pages/AboutPage.vue'
 import ContactPage from './components/pages/ContactPage.vue'
 import SingleBlog from './components/SingleBlog.vue'
 import NotFound from './components/NotFound.vue'
-
+import HomePagePanel from './components/panel/HomePanelPage.vue'
+import Payment from './components/panel/PaymentPage.vue'
+import DashboardPanelPage from './components/panel/DashboardPanelPage.vue'
 
 
 const routes = [{
@@ -41,6 +43,21 @@ const routes = [{
     {
         path: '/404',
         component: NotFound
+    },
+    {
+        path: '/panel',
+        component: HomePagePanel,
+        name: 'HomePagePanel',
+        children: [{
+            path: 'payment',
+            component: Payment,
+            name: 'payment'
+        }, {
+            path: 'dashboard',
+            component: DashboardPanelPage,
+            name: 'dashboard'
+        }]
+
     }
 
 

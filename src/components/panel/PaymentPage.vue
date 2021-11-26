@@ -1,0 +1,4 @@
+<template>
+    Payment Page
+</template>
+
