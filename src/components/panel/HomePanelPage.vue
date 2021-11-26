@@ -3,16 +3,16 @@
 
   <ul>
     <li>
-      <router-link to="/panel">Home page</router-link>
+      <router-link class="nav-link" to="/panel">Home page</router-link>
 
     </li>
     <li>
     
-      <router-link to="/panel/payment">Payment</router-link>
+      <router-link class="nav-link" to="/panel/payment">Payment</router-link>
 
     </li>
     <li>
-      <router-link to="/panel/dashboard">Dashboard</router-link>
+      <router-link class="nav-link" to="/panel/dashboard">Dashboard</router-link>
     </li>
   </ul>
 

@@ -12,6 +12,7 @@ import HomePagePanel from './components/panel/HomePanelPage.vue'
 import Payment from './components/panel/PaymentPage.vue'
 import DashboardPanelPage from './components/panel/DashboardPanelPage.vue'
 
+import LoginPage from './components/pages/LoginPage.vue'
 
 const routes = [{
         path: '/',
@@ -20,6 +21,10 @@ const routes = [{
     {
         path: '/about',
         component: AboutPage
+    },
+    {
+        path: '/login',
+        component: LoginPage
     },
     {
         path: '/contact/',
@@ -64,8 +69,27 @@ const routes = [{
 ]
 
 
-export default createRouter({
+
+function checkUserIsAuth() {
+    return false;
+}
+
+
+const router = createRouter({
     history: createWebHistory(),
     routes,
     linkActiveClass: "active"
 })
+
+
+router.beforeEach(function (to, from, next) {
+
+    if (/^\/panel/.test(to.path) && ! checkUserIsAuth()) {
+        return next('/login');
+    }
+    next()
+})
+
+
+
+export default router
