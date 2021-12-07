@@ -17,8 +17,10 @@
       <PostList></PostList>
       <sidebar></sidebar>
     </div>
+
   </div>
 </template>
+
 
 
 <script>
