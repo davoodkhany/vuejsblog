@@ -1,12 +1,19 @@
 <template>
  
+
+
+
+
   <my-header></my-header>
+
+
 
   <button class="btn btn-danger" @click="ShowModals">ShowModal</button>
 
     <button class="btn btn-green" @click="RouterAbout">RouterAbout</button>
 
   <ShowModal :active="ActiveModal" @CloseModal="CloseModal"></ShowModal>
+
 
 
 
@@ -19,7 +26,9 @@
     </div>
 
   </div>
+
 </template>
+
 
 
 
